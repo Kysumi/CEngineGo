@@ -7,12 +7,13 @@ import (
 )
 
 type Camera struct {
+	GameObject
 	matrixPosition pixel.Matrix
-	position pixel.Vec
 	zoom float64
 	zoomSpeed float64
 	maxZoom float64
 	minZoom float64
+	chaseObject *Player
 }
 
 // Initialize with default values
@@ -31,7 +32,7 @@ func (c *Camera) Draw(window *pixelgl.Window, deltaTime float64) {
 
 // Calculates the new position for the camera
 func (c *Camera) Update(window *pixelgl.Window) {
-	c.matrixPosition = pixel.IM.Scaled(c.position, c.zoom).Moved(window.Bounds().Center().Sub(c.position))
+	c.matrixPosition = pixel.IM.Scaled(c.position, c.zoom).Moved(window.Bounds().Center().Sub(c.chaseObject.GetPosition()))
 	c.zoom *= math.Pow(c.zoomSpeed, window.MouseScroll().Y)
 
 	if c.zoom > c.maxZoom {

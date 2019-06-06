@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 	"golang.org/x/image/colornames"
@@ -26,8 +26,10 @@ func run() {
 	player.SetSprite(loadSprite("img_person_0.png"))
 	player.Init()
 
+	camera.chaseObject = player
+
 	last := time.Now()
-	frameTime := time.Now()
+	//frameTime := time.Now()
 
 	currentMap := new(Map)
 	currentMap.CreateGrid(pixel.V(32,32))
@@ -51,8 +53,8 @@ func run() {
 		player.Draw(window)
 
 		// print out FPS
-		fmt.Println(float64(1) / time.Since(frameTime).Seconds())
-		frameTime = time.Now()
+		//fmt.Println(float64(1) / time.Since(frameTime).Seconds())
+		//frameTime = time.Now()
 
 
 		window.Update()
