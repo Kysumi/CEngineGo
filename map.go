@@ -46,3 +46,46 @@ func (m *Map) Draw(window *pixelgl.Window) {
 		}
 	}
 }
+
+// Checks if the grid location is valid.
+func (m *Map) WithinMapBounds(position pixel.Vec) bool {
+
+	if int(position.Y) > len(m.grid) || int(position.Y) < 0 {
+		return false
+	}
+
+	if int(position.X) > len(m.grid) || int(position.X) < 0 {
+		return false
+	}
+
+	return true
+}
+
+func (m *Map) getTileFromGridPosition(position pixel.Vec) Tile {
+	return m.grid[int(position.X)][int(position.Y)]
+}
+
+func (m *Map) getNeighbourTiles(position pixel.Vec) []Tile {
+
+	tiles := make([]Tile, 8)
+
+	for x := -1; x <= 1 ; x++ {
+		for y := -1; y <= 1 ; y++ {
+
+			// If it is the current tile ignore
+			if int(position.X) == x && int(position.Y) == y {
+				continue
+			}
+
+			newPosition := pixel.V(position.X + float64(x), position.Y + float64(y))
+
+			if !m.WithinMapBounds(newPosition) {
+				continue
+			}
+
+			tiles = append(tiles, m.getTileFromGridPosition(newPosition))
+		}
+	}
+
+	return tiles
+}

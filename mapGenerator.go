@@ -6,10 +6,24 @@ type TileDetails struct {
 }
 
 
-func getTiles() map[string]TileDetails {
+func getTiles() map[string][]TileDetails {
 
-	tilesSets := make(map[string]TileDetails)
+	tilesSets := make(map[string][]TileDetails)
+
+	tilesSets["grass"] = append(tilesSets["grass"], TileDetails{"", 20})
+	tilesSets["grass"] = append(tilesSets["grass"], TileDetails{"", 10})
 
 
-	tilesSets["grass"] = append(tilesSets["grass"], TileDetails{})
+	return tilesSets
+}
+
+func generate(newMap *Map) {
+
+	//tiles := getTiles()
+	//
+	//newMap.getNeighbourTiles(pixel.V(0,0))
+	//
+	//tiles["grass"]
+
+
 }
