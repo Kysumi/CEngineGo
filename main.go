@@ -34,6 +34,8 @@ func run() {
 	currentMap := new(Map)
 	currentMap.CreateGrid(pixel.V(32,32))
 
+	generate(currentMap)
+
 	for !window.Closed() {
 		// Clear window from the last frame.
 		window.Clear(colornames.Yellow)
@@ -46,6 +48,12 @@ func run() {
 
 		if window.JustPressed(pixelgl.KeyEscape) {
 			window.SetClosed(true)
+		}
+
+		if window.JustPressed(pixelgl.KeyR) {
+			currentMap = new(Map)
+			currentMap.CreateGrid(pixel.V(32,32))
+			generate(currentMap)
 		}
 
 		currentMap.Draw(window)

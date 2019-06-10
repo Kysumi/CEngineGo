@@ -11,7 +11,7 @@ type Tile struct {
 	tilePixelPosition pixel.Vec
 
 	sprite *pixel.Sprite
-
+	walkable bool
 }
 
 func (t *Tile) Sprite() *pixel.Sprite {

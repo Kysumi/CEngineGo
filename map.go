@@ -50,34 +50,35 @@ func (m *Map) Draw(window *pixelgl.Window) {
 // Checks if the grid location is valid.
 func (m *Map) WithinMapBounds(position pixel.Vec) bool {
 
-	if int(position.Y) > len(m.grid) || int(position.Y) < 0 {
+	if int(position.Y) >= len(m.grid) || int(position.Y) < 0 {
 		return false
 	}
 
-	if int(position.X) > len(m.grid) || int(position.X) < 0 {
+	if int(position.X) >= len(m.grid) || int(position.X) < 0 {
 		return false
 	}
 
 	return true
 }
 
-func (m *Map) getTileFromGridPosition(position pixel.Vec) Tile {
-	return m.grid[int(position.X)][int(position.Y)]
+func (m *Map) getTileFromGridPosition(position pixel.Vec) *Tile {
+	return &m.grid[int(position.X)][int(position.Y)]
 }
 
-func (m *Map) getNeighbourTiles(position pixel.Vec) []Tile {
+func (m *Map) getNeighbourTiles(position pixel.Vec, withParent bool) []*Tile {
 
-	tiles := make([]Tile, 8)
+	tiles := make([]*Tile, 0)
 
 	for x := -1; x <= 1 ; x++ {
 		for y := -1; y <= 1 ; y++ {
+			newPosition := pixel.V(position.X + float64(x), position.Y + float64(y))
 
 			// If it is the current tile ignore
-			if int(position.X) == x && int(position.Y) == y {
-				continue
+			if withParent == false {
+				if position.X == newPosition.X && position.Y == newPosition.Y {
+					continue
+				}
 			}
-
-			newPosition := pixel.V(position.X + float64(x), position.Y + float64(y))
 
 			if !m.WithinMapBounds(newPosition) {
 				continue
