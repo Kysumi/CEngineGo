@@ -12,3 +12,7 @@
 *.out
 
 .idea/
+.vscode/
+
+# build filename
+m
