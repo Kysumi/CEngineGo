@@ -43,8 +43,8 @@ func run() {
 		dt := time.Since(last).Seconds()
 		last = time.Now()
 
-		camera.Update(window)
 		player.Update(window, dt)
+		camera.Update(window)
 
 		if window.JustPressed(pixelgl.KeyEscape) {
 			window.SetClosed(true)

@@ -32,7 +32,12 @@ func (c *Camera) Draw(window *pixelgl.Window, deltaTime float64) {
 
 // Calculates the new position for the camera
 func (c *Camera) Update(window *pixelgl.Window) {
-	c.matrixPosition = pixel.IM.Scaled(c.position, c.zoom).Moved(window.Bounds().Center().Sub(c.chaseObject.GetPosition()))
+	c.position.X = c.chaseObject.GetPosition().X - window.Bounds().Max.X / 2
+	c.position.Y = c.chaseObject.GetPosition().Y - window.Bounds().Max.Y / 2
+
+	c.matrixPosition = pixel.IM.Moved(c.position.Scaled(-1))
+	window.SetMatrix(c.matrixPosition)
+
 	c.zoom *= math.Pow(c.zoomSpeed, window.MouseScroll().Y)
 
 	if c.zoom > c.maxZoom {
