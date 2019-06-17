@@ -12,7 +12,7 @@ type Player struct {
 }
 
 func (p *Player) Init() {
-	p.moveSpeed = 100
+	p.moveSpeed = 500
 	p.position = pixel.V(0,0)
 }
 
@@ -30,19 +30,18 @@ func (p *Player) Draw(window *pixelgl.Window) {
 
 func (p *Player) Update(window *pixelgl.Window, deltaTime float64) {
 	if window.Pressed(pixelgl.KeyW) {
-		res := p.position.Y + p.moveSpeed
-		p.position.Y += res * deltaTime
+		p.position.Y += p.moveSpeed * deltaTime
 	}
 
 	if window.Pressed(pixelgl.KeyD) {
-		p.position.X += (p.position.X + p.moveSpeed) * deltaTime
+		p.position.X += p.moveSpeed * deltaTime
 	}
 
 	if window.Pressed(pixelgl.KeyS) {
-		p.position.Y -= (p.position.Y + p.moveSpeed) * deltaTime
+		p.position.Y -= p.moveSpeed * deltaTime
 	}
 
 	if window.Pressed(pixelgl.KeyA) {
-		p.position.X -= (p.position.X + p.moveSpeed) * deltaTime
+		p.position.X -= + p.moveSpeed * deltaTime
 	}
 }
