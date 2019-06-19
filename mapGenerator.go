@@ -38,8 +38,8 @@ func getTiles() map[string][]TileDetails {
 		tilesSets["grass"],
 		TileDetails{"img_grass_3.png", 100, true, 0})
 
-	tilesSets["grass"] = append(
-		tilesSets["grass"],
+	tilesSets["dirt"] = append(
+		tilesSets["dirt"],
 		TileDetails{"img_dirt_0.png", 150, true, 0})
 
 	tilesSets["grass"] = append(
@@ -57,6 +57,10 @@ func getTiles() map[string][]TileDetails {
 	tilesSets["stone"] = append(
 		tilesSets["stone"],
 		TileDetails{"img_stone_0.png", 30, true, 0})
+
+	tilesSets["water"] = append(
+		tilesSets["water"],
+		TileDetails{"img_water_0.png", 0, false, 0})
 
 	return tilesSets
 }
@@ -83,6 +87,12 @@ func generate(newMap *Map) {
 
 				arrayLoc := r.Intn(tileOptions)
 				currentTileDetails := &tiles[key][arrayLoc]
+
+				for _, conway := range conwayManager.TileDetails {
+					if conway.BiomeType == key {
+						neighbour.tileType = conway
+					}
+				}
 
 				neighbour.SetSprite(loadSprite(currentTileDetails.spriteName))
 

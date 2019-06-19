@@ -18,7 +18,7 @@ type Camera struct {
 
 // Initialize with default values
 func (c *Camera) Init() {
-	c.position = pixel.ZV
+	c.pixelPosition = pixel.ZV
 	c.zoom = 1.0
 	c.zoomSpeed = 1.2
 	c.minZoom = 0.4
@@ -32,10 +32,10 @@ func (c *Camera) Draw(window *pixelgl.Window, deltaTime float64) {
 
 // Calculates the new position for the camera
 func (c *Camera) Update(window *pixelgl.Window) {
-	c.position.X = c.chaseObject.GetPosition().X - window.Bounds().Max.X / 2
-	c.position.Y = c.chaseObject.GetPosition().Y - window.Bounds().Max.Y / 2
+	c.pixelPosition.X = c.chaseObject.GetPosition().X - window.Bounds().Max.X / 2
+	c.pixelPosition.Y = c.chaseObject.GetPosition().Y - window.Bounds().Max.Y / 2
 
-	c.matrixPosition = pixel.IM.Moved(c.position.Scaled(-1))
+	c.matrixPosition = pixel.IM.Moved(c.pixelPosition.Scaled(-1))
 	window.SetMatrix(c.matrixPosition)
 
 	c.zoom *= math.Pow(c.zoomSpeed, window.MouseScroll().Y)

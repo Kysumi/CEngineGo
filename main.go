@@ -14,6 +14,11 @@ func main() {
 	pixelgl.Run(run)
 }
 
+var (
+	currentMap *Map
+	conwayManager *ConwayManager
+)
+
 func run() {
 
 	window := createWindow()
@@ -30,11 +35,23 @@ func run() {
 
 	last := time.Now()
 	//frameTime := time.Now()
+	conwayManager = new(ConwayManager)
+	conwayManager.Init()
 
-	currentMap := new(Map)
+	currentMap = new(Map)
 	currentMap.CreateGrid(pixel.V(32,32))
-
 	generate(currentMap)
+
+	for i := 0; i < 10; i++ {
+		window.Clear(colornames.Yellow)
+		for x := 0; x < int(currentMap.size.X); x++ {
+			for y := 0; y < int(currentMap.size.Y); y++ {
+				currentMap.grid[x][y].Tick()
+			}
+			currentMap.Draw(window)
+			window.Update()
+		}
+	}
 
 	for !window.Closed() {
 		// Clear window from the last frame.

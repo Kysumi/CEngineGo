@@ -6,11 +6,10 @@ import (
 )
 
 type Tile struct {
+	TileConway
 	tileSize pixel.Vec
-	tileMapPosition pixel.Vec
-	tilePixelPosition pixel.Vec
 
-	sprite *pixel.Sprite
+	sprite   *pixel.Sprite
 	walkable bool
 }
 
@@ -23,13 +22,13 @@ func (t *Tile) SetSprite(sprite *pixel.Sprite) {
 }
 
 func (t *Tile) TileMapPosition() pixel.Vec {
-	return t.tileMapPosition
+	return t.mapPosition
 }
 
 // Updates both the pixel post and tilemap pos
 func (t *Tile) SetTileMapPosition(tileMapPosition pixel.Vec) {
-	t.tileMapPosition = tileMapPosition
-	t.tilePixelPosition = pixel.V(tileMapPosition.X * t.tileSize.X, tileMapPosition.Y * t.tileSize.Y)
+	t.mapPosition = tileMapPosition
+	t.pixelPosition = pixel.V(tileMapPosition.X * t.tileSize.X, tileMapPosition.Y * t.tileSize.Y)
 }
 
 func (t *Tile) TileSize() pixel.Vec {
@@ -41,9 +40,9 @@ func (t *Tile) SetTileSize(tileSize pixel.Vec) {
 }
 
 func (t *Tile) TilePixelPosition() pixel.Vec {
-	return t.tilePixelPosition
+	return t.pixelPosition
 }
 
 func (t *Tile) Draw(window *pixelgl.Window) {
-	t.sprite.Draw(window, pixel.IM.Moved(t.tilePixelPosition))
+	t.sprite.Draw(window, pixel.IM.Moved(t.pixelPosition))
 }

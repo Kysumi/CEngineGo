@@ -1,7 +1,10 @@
 package main
 
-import "github.com/faiface/pixel"
+import (
+	"github.com/faiface/pixel"
+)
 
 type GameObject struct {
-	position pixel.Vec
+	pixelPosition pixel.Vec
+	mapPosition pixel.Vec
 }

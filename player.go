@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
+	"math"
 )
 
 type Player struct {
@@ -13,11 +14,11 @@ type Player struct {
 
 func (p *Player) Init() {
 	p.moveSpeed = 500
-	p.position = pixel.V(0,0)
+	p.pixelPosition = pixel.V(0,0)
 }
 
 func (p *Player) GetPosition() pixel.Vec {
-	return p.position
+	return p.pixelPosition
 }
 
 func (p *Player) SetSprite(sprite *pixel.Sprite) {
@@ -25,23 +26,26 @@ func (p *Player) SetSprite(sprite *pixel.Sprite) {
 }
 
 func (p *Player) Draw(window *pixelgl.Window) {
-	p.sprite.Draw(window, pixel.IM.Moved(p.position))
+	p.sprite.Draw(window, pixel.IM.Moved(p.pixelPosition))
 }
 
 func (p *Player) Update(window *pixelgl.Window, deltaTime float64) {
 	if window.Pressed(pixelgl.KeyW) {
-		p.position.Y += p.moveSpeed * deltaTime
+		p.pixelPosition.Y += p.moveSpeed * deltaTime
 	}
 
 	if window.Pressed(pixelgl.KeyD) {
-		p.position.X += p.moveSpeed * deltaTime
+		p.pixelPosition.X += p.moveSpeed * deltaTime
 	}
 
 	if window.Pressed(pixelgl.KeyS) {
-		p.position.Y -= p.moveSpeed * deltaTime
+		p.pixelPosition.Y -= p.moveSpeed * deltaTime
 	}
 
 	if window.Pressed(pixelgl.KeyA) {
-		p.position.X -= + p.moveSpeed * deltaTime
+		p.pixelPosition.X -= + p.moveSpeed * deltaTime
 	}
+
+	p.mapPosition.X = math.Round(p.pixelPosition.X / currentMap.size.X)
+	p.mapPosition.Y = math.Round(p.pixelPosition.Y / currentMap.size.Y)
 }
