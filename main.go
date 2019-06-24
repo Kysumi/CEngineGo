@@ -18,12 +18,18 @@ func main() {
 var (
 	currentMap *Map
 	conwayManager *ConwayManager
+	loadedSprites map[string]*pixel.Sprite
+	randomInstance *rand.Rand
 )
 
 func run() {
 
 	window := createWindow()
 	rand.Seed(time.Now().UnixNano())
+
+	//INIT globals
+	loadedSprites = make(map[string]*pixel.Sprite)
+	randomInstance = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	camera := new(Camera)
 	camera.Init()
@@ -43,17 +49,6 @@ func run() {
 	currentMap.CreateGrid(pixel.V(32,32))
 	generate(currentMap)
 
-	for i := 0; i < 10; i++ {
-		window.Clear(colornames.Yellow)
-		for x := 0; x < int(currentMap.size.X); x++ {
-			for y := 0; y < int(currentMap.size.Y); y++ {
-				currentMap.grid[x][y].Tick()
-			}
-			currentMap.Draw(window)
-			window.Update()
-		}
-	}
-
 	for !window.Closed() {
 		// Clear window from the last frame.
 		window.Clear(colornames.Yellow)
@@ -72,6 +67,16 @@ func run() {
 			currentMap = new(Map)
 			currentMap.CreateGrid(pixel.V(32,32))
 			generate(currentMap)
+			for i := 0; i < 3; i++ {
+				window.Clear(colornames.Yellow)
+				for x := 0; x < int(currentMap.size.X); x++ {
+					for y := 0; y < int(currentMap.size.Y); y++ {
+						currentMap.grid[x][y].Tick()
+					}
+					currentMap.Draw(window)
+					window.Update()
+				}
+			}
 		}
 
 		currentMap.Draw(window)

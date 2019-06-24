@@ -15,8 +15,7 @@ type TileDetails struct {
 }
 
 func randomPosition(maxSize pixel.Vec) pixel.Vec {
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	return pixel.V(float64(r.Intn(int(maxSize.X) + 1)), float64(r.Intn(int(maxSize.Y)) + 1))
+	return pixel.V(float64(randomInstance.Intn(int(maxSize.X) + 1)), float64(randomInstance.Intn(int(maxSize.Y)) + 1))
 }
 
 func getTiles() map[string][]TileDetails {

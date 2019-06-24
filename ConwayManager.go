@@ -27,6 +27,20 @@ func (c *ConwayManager) swapTileType(tile *TileConway) {
 	mapTile.SetSprite(loaders.GetSprite(details.spriteName))
 }
 
+func (c *ConwayManager) swapTileTypeUnderPop(tile *TileConway, tileDetails TileDetailsConway) {
+
+	//tile.tileType = c.TileDetails[tile.tileType.DeathTileType]
+
+	mapTile := currentMap.getTileFromGridPosition(tile.mapPosition)
+
+	mapTile.tileType = tileDetails
+
+	tiles := getTiles()
+	key := tile.tileType.BiomeType
+	details := tiles[key][randomInstance.Intn(len(tiles[key]))]
+
+	mapTile.SetSprite(loaders.GetSprite(details.spriteName))
+}
 
 func (c *ConwayManager) Init() {
 	// read file

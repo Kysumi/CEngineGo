@@ -43,8 +43,8 @@
     {
       "death_tile_type" : 2,
       "under_pop": -1,
-      "over_pop": 7,
-      "reproduction": 2,
+      "over_pop": -1,
+      "reproduction": 6,
       "death": 0,
       "biome_type": "grass"
     }
