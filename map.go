@@ -1,6 +1,7 @@
 package main
 
 import (
+	"example.com/m/loaders"
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 )
@@ -22,7 +23,7 @@ func (m *Map) CreateGrid(size pixel.Vec) {
 func (m *Map) loadMap() {
 	for x := 0; x < int(m.size.X); x++ {
 		for y := 0; y < int(m.size.Y); y++ {
-			m.grid[x][y].SetSprite(loadSprite("img_water_0.png"))
+			m.grid[x][y].SetSprite(loaders.GetSprite("img_water_0.png"))
 			m.grid[x][y].SetTileSize(pixel.V(32,32))
 			m.grid[x][y].SetTileMapPosition(pixel.V(float64(x), float64(y)))
 			m.grid[x][y].tileType = conwayManager.TileDetails[0]

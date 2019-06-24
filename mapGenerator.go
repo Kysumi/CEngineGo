@@ -1,6 +1,7 @@
 package main
 
 import (
+	"example.com/m/loaders"
 	"github.com/faiface/pixel"
 	"math/rand"
 	"time"
@@ -94,7 +95,7 @@ func generate(newMap *Map) {
 					}
 				}
 
-				neighbour.SetSprite(loadSprite(currentTileDetails.spriteName))
+				neighbour.SetSprite(loaders.GetSprite(currentTileDetails.spriteName))
 
 				currentTileDetails.consumed += 1
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"example.com/m/loaders"
 	//"fmt"
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
@@ -28,7 +29,7 @@ func run() {
 	camera.Init()
 
 	player := new(Player)
-	player.SetSprite(loadSprite("img_person_0.png"))
+	player.SetSprite(loaders.GetSprite("img_person_0.png"))
 	player.Init()
 
 	camera.chaseObject = player

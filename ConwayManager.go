@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"example.com/m/loaders"
 	"io/ioutil"
 	"math/rand"
 	"time"
@@ -23,7 +24,7 @@ func (c *ConwayManager) swapTileType(tile *TileConway) {
 	key := tile.tileType.BiomeType
 	details := tiles[key][r.Intn(len(tiles[key]))]
 
-	mapTile.SetSprite(loadSprite(details.spriteName))
+	mapTile.SetSprite(loaders.GetSprite(details.spriteName))
 }
 
 
