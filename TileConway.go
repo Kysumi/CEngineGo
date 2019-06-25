@@ -93,7 +93,7 @@ func (t *TileConway) checkReproduction(neighbours []*Tile) {
 
 		countChanged := 0
 
-		for (countChanged + count) <= targetCount {
+		for (countChanged + count) < targetCount {
 			randomInt := randomInstance.Intn(len(neighbours))
 			tile := neighbours[randomInt]
 

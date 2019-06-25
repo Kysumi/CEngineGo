@@ -4,7 +4,7 @@
       "death_tile_type" : 0,
       "under_pop": -1,
       "over_pop": -1,
-      "reproduction": -1,
+      "reproduction": 3,
       "death": 0,
       "biome_type": "water"
     },
@@ -19,32 +19,32 @@
     {
       "death_tile_type" : 0,
       "under_pop": 2,
-      "over_pop": 5,
-      "reproduction": 3,
-      "death": 0,
+      "over_pop": 2,
+      "reproduction": 1,
+      "death": -1,
       "biome_type": "stone"
     },
     {
       "death_tile_type" : 1,
-      "under_pop": 1,
+      "under_pop": 4,
       "over_pop": 7,
-      "reproduction": 3,
+      "reproduction": 1,
       "death": 0,
       "biome_type": "dirt"
     },
     {
       "death_tile_type" : 2,
       "under_pop": 2,
-      "over_pop": 4,
-      "reproduction": 2,
-      "death": 0,
+      "over_pop": 2,
+      "reproduction": 1,
+      "death": -1,
       "biome_type": "sand"
     },
     {
-      "death_tile_type" : 2,
-      "under_pop": -1,
-      "over_pop": -1,
-      "reproduction": 6,
+      "death_tile_type" : 4,
+      "under_pop": 4,
+      "over_pop": 6,
+      "reproduction": 4,
       "death": 0,
       "biome_type": "grass"
     }
