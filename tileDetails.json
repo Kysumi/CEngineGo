@@ -2,10 +2,10 @@
   "tileDetails" : [
     {
       "death_tile_type" : 0,
-      "under_pop": -1,
+      "under_pop": 4,
       "over_pop": -1,
       "reproduction": 3,
-      "death": 0,
+      "death": -1,
       "biome_type": "water"
     },
     {
@@ -26,7 +26,7 @@
     },
     {
       "death_tile_type" : 1,
-      "under_pop": 4,
+      "under_pop": 3,
       "over_pop": 7,
       "reproduction": 1,
       "death": 0,
@@ -44,7 +44,7 @@
       "death_tile_type" : 4,
       "under_pop": 6,
       "over_pop": 7,
-      "reproduction": 4,
+      "reproduction": 5,
       "death": 0,
       "biome_type": "grass"
     }
