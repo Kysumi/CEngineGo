@@ -7,11 +7,13 @@ type TileConway struct {
 
 // func to call when want to process game of life
 func (t *TileConway) Tick() {
-	neighbours := currentMap.getNeighbourTiles(t.mapPosition, false)
+	neighbours := currentMap.getNeighbourTiles(t.mapPosition, false, t.tileType.NeighboursReach)
 	t.checkUnderPopulation(neighbours)
 	t.checkLiveToNextGeneration(neighbours)
 	t.checkOverPopulation(neighbours)
 	t.checkReproduction(neighbours)
+
+	t.forceGrouping()
 }
 
 // Rule 1
@@ -47,9 +49,13 @@ func (t *TileConway) checkLiveToNextGeneration(neighbours []*Tile) {
 		return
 	}
 
-	//if t.tileType.Death <= count {
-	//	conwayManager.swapTileType(t)
-	//}
+	if t.tileType.Death <= count {
+
+		randomInt := randomInstance.Intn(len(neighbours))
+		tile := neighbours[randomInt]
+
+		conwayManager.swapTileTypeUnderPop(t, tile.tileType)
+	}
 }
 
 // Rule 3
@@ -102,6 +108,24 @@ func (t *TileConway) checkReproduction(neighbours []*Tile) {
 				countChanged++
 			}
 		}
+	}
+}
+
+// Helping function to make sure we don't have random stray nodes.
+func (t *TileConway) forceGrouping() {
+
+	directNeighbours := currentMap.getStraightNeighbourTiles(t.mapPosition)
+	count := 0
+	for _, neighbour := range directNeighbours {
+		if neighbour.tileType.BiomeType == t.tileType.BiomeType {
+			count++
+		}
+	}
+
+	if count == 0 {
+		loc := randomInstance.Intn(len(directNeighbours))
+		temp := directNeighbours[loc]
+		conwayManager.swapTileTypeUnderPop(t, temp.tileType)
 	}
 }
 

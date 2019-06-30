@@ -7,4 +7,5 @@ type TileDetailsConway struct {
 	Reproduction int `json:"reproduction"`
 	Death        int `json:"death"`
 	BiomeType   string `json:"biome_type"`
+	NeighboursReach   int `json:"neighbours_reach"`
 }

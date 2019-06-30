@@ -73,7 +73,7 @@ func generate(newMap *Map) {
 	for key := range tiles {
 		for len(tiles[key]) > 0 {
 			position := randomPosition(newMap.size)
-			neighbours := newMap.getNeighbourTiles(position, true)
+			neighbours := newMap.getNeighbourTiles(position, true, 1)
 
 			for _, neighbour := range neighbours {
 				if rand.Intn(10) > 2 {

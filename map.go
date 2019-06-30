@@ -67,11 +67,11 @@ func (m *Map) getTileFromGridPosition(position pixel.Vec) *Tile {
 	return &m.grid[int(position.X)][int(position.Y)]
 }
 
-func (m *Map) getNeighbourTiles(position pixel.Vec, withParent bool) []*Tile {
+func (m *Map) getNeighbourTiles(position pixel.Vec, withParent bool, reach int) []*Tile {
 
 	tiles := make([]*Tile, 0)
 
-	for x := -1; x <= 1 ; x++ {
+	for x := -reach; x <= reach ; x++ {
 		for y := -1; y <= 1 ; y++ {
 			newPosition := pixel.V(position.X + float64(x), position.Y + float64(y))
 
@@ -89,6 +89,27 @@ func (m *Map) getNeighbourTiles(position pixel.Vec, withParent bool) []*Tile {
 			tiles = append(tiles, m.getTileFromGridPosition(newPosition))
 		}
 	}
+
+	return tiles
+}
+
+func (m *Map) getStraightNeighbourTiles(position pixel.Vec) []*Tile {
+
+	tiles := make([]*Tile, 0)
+
+	positions := []pixel.Vec{
+		pixel.V(position.X - 1, position.Y),
+		pixel.V(position.X + 1, position.Y),
+		pixel.V(position.X, position.Y - 1),
+		pixel.V(position.X, position.Y + 1)}
+
+	for _, element := range positions {
+			if !m.WithinMapBounds(element) {
+				continue
+			}
+
+			tiles = append(tiles, m.getTileFromGridPosition(element))
+		}
 
 	return tiles
 }
