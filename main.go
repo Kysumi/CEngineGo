@@ -44,7 +44,7 @@ func run() {
 	conwayManager.Init()
 
 	currentMap = new(Map)
-	currentMap.CreateGrid(pixel.V(32,32))
+	currentMap.CreateGrid(pixel.V(64,64))
 	generate(currentMap)
 
 	for !window.Closed() {
@@ -71,7 +71,7 @@ func run() {
 
 			time.Sleep(time.Second)
 
-			for i := 0; i < 2; i++ {
+			for i := 0; i < 30; i++ {
 				window.Clear(colornames.Yellow)
 				for x := 0; x < int(currentMap.size.X); x++ {
 					for y := 0; y < int(currentMap.size.Y); y++ {
