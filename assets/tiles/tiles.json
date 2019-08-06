@@ -1,0 +1,44 @@
+{
+  "tile_config" : [
+    {
+      "name": "water",
+      "image": "img_water_0.png"
+    },
+    {
+      "name": "stone",
+      "image": "img_stone_0.png"
+    },
+    {
+      "name": "sand",
+      "image": "img_sand_0.png"
+    },
+    {
+      "name": "barron",
+      "image": "img_barron_0.png"
+    },
+    {
+      "name": "grass_4",
+      "image": "img_grass_4.png"
+    },
+    {
+      "name": "dirt",
+      "image": "img_dirt_0.png"
+    },
+    {
+      "name": "grass_3",
+      "image": "img_grass_3.png"
+    },
+    {
+      "name": "grass_2",
+      "image": "img_grass_2.png"
+    },
+    {
+      "name": "grass_1",
+      "image": "img_grass_1.png"
+    },
+    {
+      "name": "grass",
+      "image": "img_grass_0.png"
+    }
+  ]
+}

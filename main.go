@@ -71,7 +71,7 @@ func run() {
 
 			time.Sleep(time.Second)
 
-			for i := 0; i < 30; i++ {
+			for i := 0; i < 5; i++ {
 				window.Clear(colornames.Yellow)
 				for x := 0; x < int(currentMap.size.X); x++ {
 					for y := 0; y < int(currentMap.size.Y); y++ {

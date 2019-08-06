@@ -4,10 +4,10 @@
       "death_tile_type" : 0,
       "under_pop": 4,
       "over_pop": -1,
-      "reproduction": 3,
+      "reproduction": 4,
       "death": -1,
       "biome_type": "water",
-      "neighbours_reach": 4
+      "neighbours_reach": 10
     },
     {
       "death_tile_type" : 0,
