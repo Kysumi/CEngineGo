@@ -2,7 +2,7 @@ package main
 
 type TileConway struct {
 	GameObject
-	tileType 	 TileDetailsConway
+	tileType TileDetailsConway
 }
 
 // func to call when want to process game of life
@@ -22,7 +22,7 @@ func (t *TileConway) checkUnderPopulation(neighbours []*Tile) {
 
 	for _, element := range neighbours {
 		if element.tileType == t.tileType {
-			count ++
+			count++
 		}
 	}
 
@@ -41,7 +41,7 @@ func (t *TileConway) checkLiveToNextGeneration(neighbours []*Tile) {
 
 	for _, element := range neighbours {
 		if element.tileType == t.tileType {
-			count ++
+			count++
 		}
 	}
 
@@ -64,7 +64,7 @@ func (t *TileConway) checkOverPopulation(neighbours []*Tile) {
 
 	for _, element := range neighbours {
 		if element.tileType == t.tileType {
-			count ++
+			count++
 		}
 	}
 
@@ -83,7 +83,7 @@ func (t *TileConway) checkReproduction(neighbours []*Tile) {
 
 	for _, element := range neighbours {
 		if element.tileType == t.tileType {
-			count ++
+			count++
 		}
 	}
 
@@ -128,6 +128,3 @@ func (t *TileConway) forceGrouping() {
 		conwayManager.swapTileTypeUnderPop(t, temp.tileType)
 	}
 }
-
-
-
