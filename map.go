@@ -1,7 +1,7 @@
 package main
 
 import (
-	"example.com/m/loaders"
+	// "example.com/m/loaders"
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 )
@@ -9,7 +9,6 @@ import (
 type Map struct {
 	size pixel.Vec
 	grid [][]Tile
-
 }
 
 // Inits the grid for the map
@@ -23,8 +22,8 @@ func (m *Map) CreateGrid(size pixel.Vec) {
 func (m *Map) loadMap() {
 	for x := 0; x < int(m.size.X); x++ {
 		for y := 0; y < int(m.size.Y); y++ {
-			m.grid[x][y].SetSprite(loaders.GetSprite("img_water_0.png"))
-			m.grid[x][y].SetTileSize(pixel.V(32,32))
+			m.grid[x][y].SetSprite(GetSprite("img_water_0.png"))
+			m.grid[x][y].SetTileSize(pixel.V(32, 32))
 			m.grid[x][y].SetTileMapPosition(pixel.V(float64(x), float64(y)))
 			m.grid[x][y].tileType = conwayManager.TileDetails[0]
 		}
@@ -43,7 +42,7 @@ func (m *Map) resizeGrid() {
 func (m *Map) Draw(window *pixelgl.Window) {
 
 	for x := 0; x < int(m.size.X); x++ {
-		for y := 0; y < int(m.size.Y); y++  {
+		for y := 0; y < int(m.size.Y); y++ {
 			m.grid[x][y].Draw(window)
 		}
 	}
@@ -71,9 +70,9 @@ func (m *Map) getNeighbourTiles(position pixel.Vec, withParent bool, reach int) 
 
 	tiles := make([]*Tile, 0)
 
-	for x := -reach; x <= reach ; x++ {
-		for y := -1; y <= 1 ; y++ {
-			newPosition := pixel.V(position.X + float64(x), position.Y + float64(y))
+	for x := -reach; x <= reach; x++ {
+		for y := -1; y <= 1; y++ {
+			newPosition := pixel.V(position.X+float64(x), position.Y+float64(y))
 
 			// If it is the current tile ignore
 			if withParent == false {
@@ -98,18 +97,18 @@ func (m *Map) getStraightNeighbourTiles(position pixel.Vec) []*Tile {
 	tiles := make([]*Tile, 0)
 
 	positions := []pixel.Vec{
-		pixel.V(position.X - 1, position.Y),
-		pixel.V(position.X + 1, position.Y),
-		pixel.V(position.X, position.Y - 1),
-		pixel.V(position.X, position.Y + 1)}
+		pixel.V(position.X-1, position.Y),
+		pixel.V(position.X+1, position.Y),
+		pixel.V(position.X, position.Y-1),
+		pixel.V(position.X, position.Y+1)}
 
 	for _, element := range positions {
-			if !m.WithinMapBounds(element) {
-				continue
-			}
-
-			tiles = append(tiles, m.getTileFromGridPosition(element))
+		if !m.WithinMapBounds(element) {
+			continue
 		}
+
+		tiles = append(tiles, m.getTileFromGridPosition(element))
+	}
 
 	return tiles
 }

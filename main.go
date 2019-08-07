@@ -1,7 +1,7 @@
 package main
 
 import (
-	"example.com/m/loaders"
+	// "example.com/m/loaders"
 	//"fmt"
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
@@ -16,8 +16,8 @@ func main() {
 }
 
 var (
-	currentMap *Map
-	conwayManager *ConwayManager
+	currentMap     *Map
+	conwayManager  *ConwayManager
 	randomInstance *rand.Rand
 )
 
@@ -33,7 +33,7 @@ func run() {
 	camera.Init()
 
 	player := new(Player)
-	player.SetSprite(loaders.GetSprite("img_person_0.png"))
+	player.SetSprite(GetSprite("img_person_0.png"))
 	player.Init()
 
 	camera.chaseObject = player
@@ -44,7 +44,7 @@ func run() {
 	conwayManager.Init()
 
 	currentMap = new(Map)
-	currentMap.CreateGrid(pixel.V(64,64))
+	currentMap.CreateGrid(pixel.V(64, 64))
 	generate(currentMap)
 
 	for !window.Closed() {
@@ -63,7 +63,7 @@ func run() {
 
 		if window.JustPressed(pixelgl.KeyR) {
 			currentMap = new(Map)
-			currentMap.CreateGrid(pixel.V(32,32))
+			currentMap.CreateGrid(pixel.V(32, 32))
 			generate(currentMap)
 
 			currentMap.Draw(window)
@@ -91,10 +91,8 @@ func run() {
 		//fmt.Println(float64(1) / time.Since(frameTime).Seconds())
 		//frameTime = time.Now()
 
-
 		window.Update()
 	}
 }
-
 
 //https://github.com/faiface/pixel

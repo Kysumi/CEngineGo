@@ -28,7 +28,7 @@ func (t *Tile) TileMapPosition() pixel.Vec {
 // Updates both the pixel post and tilemap pos
 func (t *Tile) SetTileMapPosition(tileMapPosition pixel.Vec) {
 	t.mapPosition = tileMapPosition
-	t.pixelPosition = pixel.V(tileMapPosition.X * t.tileSize.X, tileMapPosition.Y * t.tileSize.Y)
+	t.pixelPosition = pixel.V(tileMapPosition.X*t.tileSize.X, tileMapPosition.Y*t.tileSize.Y)
 }
 
 func (t *Tile) TileSize() pixel.Vec {

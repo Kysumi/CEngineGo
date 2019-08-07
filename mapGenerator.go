@@ -1,21 +1,21 @@
 package main
 
 import (
-	"example.com/m/loaders"
+	// "example.com/m/loaders"
 	"github.com/faiface/pixel"
 	"math/rand"
 	"time"
 )
 
 type TileDetails struct {
-	spriteName string
+	spriteName   string
 	maxTileCount int
-	walkable bool
-	consumed int
+	walkable     bool
+	consumed     int
 }
 
 func randomPosition(maxSize pixel.Vec) pixel.Vec {
-	return pixel.V(float64(randomInstance.Intn(int(maxSize.X) + 1)), float64(randomInstance.Intn(int(maxSize.Y)) + 1))
+	return pixel.V(float64(randomInstance.Intn(int(maxSize.X)+1)), float64(randomInstance.Intn(int(maxSize.Y))+1))
 }
 
 func getTiles() map[string][]TileDetails {
@@ -94,7 +94,7 @@ func generate(newMap *Map) {
 					}
 				}
 
-				neighbour.SetSprite(loaders.GetSprite(currentTileDetails.spriteName))
+				neighbour.SetSprite(GetSprite(currentTileDetails.spriteName))
 
 				currentTileDetails.consumed += 1
 
