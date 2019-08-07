@@ -6,6 +6,6 @@ type TileDetailsConway struct {
 	OverPop      int `json:"over_pop"`
 	Reproduction int `json:"reproduction"`
 	Death        int `json:"death"`
-	BiomeType   string `json:"biome_type"`
+	Tile   string `json:"tile"`
 	NeighboursReach   int `json:"neighbours_reach"`
 }

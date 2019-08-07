@@ -1,0 +1,74 @@
+{
+  "available_tiles": [
+    {
+      "type": "water",
+      "options": [
+        "water"
+      ],
+      "death": [
+        "rules": [
+          "at_least"
+        ],
+
+        "sand",
+        "water"
+      ],
+      "reproduce": [
+        "water"
+      ]
+    },
+    {
+      "type": "sand",
+      "options": [
+        "sand"
+      ],
+      "death": [
+        ""
+      ],
+      "reproduce": [
+
+      ]
+    },
+    {
+      "type": "grass",
+      "options": [
+        "grass"
+      ],
+      "death": [
+
+      ],
+      "reproduce": [
+
+      ]
+    }
+  ],
+  "config" : [
+    {
+      "death_tile_type" : 0,
+      "under_pop": 1,
+      "over_pop": -1,
+      "reproduction": 1,
+      "death": -1,
+      "tile": "water",
+      "neighbours_reach": 1
+    },
+    {
+      "death_tile_type" : 2,
+      "under_pop": 2,
+      "over_pop": 4,
+      "reproduction": 2,
+      "death": 1,
+      "tile": "sand",
+      "neighbours_reach": 1
+    },
+    {
+      "death_tile_type" : 2,
+      "under_pop": 2,
+      "over_pop": 4,
+      "reproduction": 2,
+      "death": 1,
+      "tile": "grass",
+      "neighbours_reach": 1
+    }
+  ]
+}
