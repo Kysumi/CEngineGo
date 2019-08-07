@@ -6,10 +6,6 @@
         "water"
       ],
       "death": [
-        "rules": [
-          "at_least"
-        ],
-
         "sand",
         "water"
       ],
@@ -44,29 +40,26 @@
   ],
   "config" : [
     {
-      "death_tile_type" : 0,
       "under_pop": 1,
-      "over_pop": -1,
+      "can_die": false,
       "reproduction": 1,
       "death": -1,
       "tile": "water",
       "neighbours_reach": 1
     },
     {
-      "death_tile_type" : 2,
       "under_pop": 2,
       "over_pop": 4,
       "reproduction": 2,
-      "death": 1,
+      "can_die": true,
       "tile": "sand",
       "neighbours_reach": 1
     },
     {
-      "death_tile_type" : 2,
       "under_pop": 2,
       "over_pop": 4,
       "reproduction": 2,
-      "death": 1,
+      "can_die": true,
       "tile": "grass",
       "neighbours_reach": 1
     }

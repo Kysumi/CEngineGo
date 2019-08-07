@@ -8,11 +8,26 @@
         "grass_2",
         "grass_3",
         "grass_4"
+      ],
+      "death": [
+        "stone",
+        "dirt"
+      ],
+      "reproduce": [
+        "grass"
       ]
     },
     {
       "type": "dirt",
       "options": [
+        "dirt"
+      ],
+      "death": [
+        "grass",
+        "stone"
+      ],
+      "reproduce": [
+        "grass",
         "dirt"
       ]
     },
@@ -20,52 +35,53 @@
       "type": "stone",
       "options": [
         "stone"
+      ],
+      "death": [
+        "dirt"
+      ],
+      "reproduce": [
+        "stone"
       ]
     }
   ],
-  "config" : [
+  "tile_config" : [
     {
-      "death_tile_type" : 0,
       "under_pop": 4,
       "over_pop": -1,
       "reproduction": 4,
-      "death": -1,
+      "can_die": false,
       "tile": "grass",
       "neighbours_reach": 10
     },
     {
-      "death_tile_type" : 1,
       "under_pop": 3,
       "over_pop": 7,
       "reproduction": 1,
-      "death": -1,
+      "can_die": false,
       "tile": "dirt",
       "neighbours_reach": 2
     },
     {
-      "death_tile_type" : 2,
       "under_pop": 2,
       "over_pop": 4,
       "reproduction": 2,
-      "death": 1,
+      "can_die": true,
       "tile": "grass",
       "neighbours_reach": 1
     },
     {
-      "death_tile_type" : 4,
       "under_pop": 3,
-      "over_pop": -1,
+      "over_pop": false,
       "reproduction": 10,
-      "death": 0,
+      "can_die": false,
       "tile": "grass",
       "neighbours_reach": 3
     },
     {
-      "death_tile_type" : 0,
       "under_pop": 4,
       "over_pop": -1,
       "reproduction": 4,
-      "death": -1,
+      "can_die": true,
       "tile": "grass",
       "neighbours_reach": 10
     }
