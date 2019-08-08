@@ -17,7 +17,7 @@ func main() {
 
 var (
 	currentMap     *Map
-	conwayManager  *ConwayManager
+	//conwayManager  *ConwayManager
 	randomInstance *rand.Rand
 )
 
@@ -40,8 +40,8 @@ func run() {
 
 	last := time.Now()
 	//frameTime := time.Now()
-	conwayManager = new(ConwayManager)
-	conwayManager.Init()
+	//conwayManager = new(ConwayManager)
+	//conwayManager.Init()
 
 	currentMap = new(Map)
 	currentMap.CreateGrid(pixel.V(64, 64))
