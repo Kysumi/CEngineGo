@@ -1,21 +1,16 @@
 package main
 
+import "github.com/faiface/pixel"
+
 const (
-	TC_BIOME = iota
-	TC_OTHER = iota
+	TcBiome = iota
+	TcOther = iota
 )
 
 // This exists so in future i can have
 // different objects controlling the tiles without
 // issues. :pray:
-type TileController struct {
-	ControllingType int
-}
-
-func (tc *TileController) getControllingType() int {
-	return tc.ControllingType
-}
-
-func (tc *TileController) setControllingType() *TileController {
-	return tc
+type TileController interface {
+	getControllingType(tc *TileController) int
+	Tick(tc *TileController) (vec pixel.Vec)
 }

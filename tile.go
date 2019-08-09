@@ -6,11 +6,12 @@ import (
 )
 
 type Tile struct {
-	TileConway
+	GameObject
 	tileSize pixel.Vec
 
 	sprite   *pixel.Sprite
 	walkable bool
+	tileController TileController
 }
 
 func (t *Tile) Sprite() *pixel.Sprite {
@@ -45,4 +46,12 @@ func (t *Tile) TilePixelPosition() pixel.Vec {
 
 func (t *Tile) Draw(window *pixelgl.Window) {
 	t.sprite.Draw(window, pixel.IM.Moved(t.pixelPosition))
+}
+
+func (t *Tile) SetTileController(window *pixelgl.Window) {
+	t.sprite.Draw(window, pixel.IM.Moved(t.pixelPosition))
+}
+
+func (t *Tile) Tick() {
+	t.tileController.Tick(t.mapPosition)
 }
