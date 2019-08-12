@@ -14,7 +14,8 @@ func NewBiomeTile(tileController TileController) *BiomeTile {
 
 // func to call when want to process game of life
 func (bt *BiomeTile) Tick(vec pixel.Vec) {
-	neighbours := currentMap.getNeighbourTiles(vec, false, bt.biomeTileConfig.NeighboursReach)
+	neighbours := currentMap.getNeighbourTilesUnderController(vec, false, bt.biomeTileConfig.NeighboursReach, bt.controllingType)
+
 	bt.checkUnderPopulation(neighbours)
 	bt.checkLiveToNextGeneration(neighbours)
 	bt.checkOverPopulation(neighbours)

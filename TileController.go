@@ -11,6 +11,6 @@ const (
 // different objects controlling the tiles without
 // issues. :pray:
 type TileController interface {
-	getControllingType(tc *TileController) int
-	Tick(tc *TileController) (vec pixel.Vec)
+	getControllingType() int
+	Tick(vec pixel.Vec)
 }

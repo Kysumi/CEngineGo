@@ -92,6 +92,39 @@ func (m *Map) getNeighbourTiles(position pixel.Vec, withParent bool, reach int) 
 	return tiles
 }
 
+func (m *Map) getNeighbourTilesUnderController(position pixel.Vec, withParent bool, reach int, controller int) []*Tile {
+
+	tiles := make([]*Tile, 0)
+
+	for x := -reach; x <= reach; x++ {
+		for y := -1; y <= 1; y++ {
+			newPosition := pixel.V(position.X+float64(x), position.Y+float64(y))
+
+			// If it is the current tile ignore
+			if withParent == false {
+				if position.X == newPosition.X && position.Y == newPosition.Y {
+					continue
+				}
+			}
+
+			if !m.WithinMapBounds(newPosition) {
+				continue
+			}
+
+			tile := m.getTileFromGridPosition(newPosition)
+
+			if !tile.IsControlledBy(controller) {
+				continue
+			}
+
+			tiles = append(tiles, tile)
+		}
+	}
+
+	return tiles
+}
+
+
 func (m *Map) getStraightNeighbourTiles(position pixel.Vec) []*Tile {
 
 	tiles := make([]*Tile, 0)

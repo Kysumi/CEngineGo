@@ -55,3 +55,7 @@ func (t *Tile) SetTileController(window *pixelgl.Window) {
 func (t *Tile) Tick() {
 	t.tileController.Tick(t.mapPosition)
 }
+
+func (t *Tile) IsControlledBy(controllerId int) bool {
+	return t.tileController.getControllingType() == controllerId
+}
