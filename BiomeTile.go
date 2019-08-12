@@ -4,42 +4,40 @@ import "github.com/faiface/pixel"
 
 type BiomeTile struct {
 	TileController
+	biome Biome
 	biomeTileConfig BiomeTileConfig
 	controllingType int
 }
 
-func NewBiomeTile(tileController TileController) *BiomeTile {
-	return &BiomeTile{TileController: tileController, controllingType: TcBiome}
+func NewBiomeTile(tileController TileController, biome Biome) *BiomeTile {
+	return &BiomeTile{TileController: tileController, controllingType: TcBiome, biome: biome}
 }
 
 // func to call when want to process game of life
 func (bt *BiomeTile) Tick(vec pixel.Vec) {
-	neighbours := currentMap.getNeighbourTilesUnderController(vec, false, bt.biomeTileConfig.NeighboursReach, bt.controllingType)
+	neighbours := currentMap.getNeighbourTilesUnderController(
+		vec,
+		false,
+		bt.biomeTileConfig.NeighboursReach,
+		bt.controllingType)
 
 	bt.checkUnderPopulation(neighbours)
 	bt.checkLiveToNextGeneration(neighbours)
 	bt.checkOverPopulation(neighbours)
 	bt.checkReproduction(neighbours)
 
-	bt.forceGrouping()
+	//bt.forceGrouping()
 }
 
 // Rule 1
 func (bt *BiomeTile) checkUnderPopulation(neighbours []*Tile) {
-	count := 0
 
-	for _, element := range neighbours {
-		if element.tileType == bt.tileType {
-			count++
-		}
-	}
-
-	if bt.tileType.UnderPop == -1 {
+	if bt.biomeTileConfig.UnderPop == -1 {
 		return
 	}
 
-	if bt.tileType.UnderPop <= count {
-		//conwayManager.swapTileType(bt)
+	if bt.biomeTileConfig.UnderPop <= len(neighbours) && bt.biomeTileConfig.CanDie {
+		bt.biome.getNewConfig(bt.biomeTileConfig)
 	}
 }
 
