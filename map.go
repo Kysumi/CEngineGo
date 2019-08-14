@@ -25,7 +25,7 @@ func (m *Map) loadMap() {
 			m.grid[x][y].SetSprite(GetSprite("img_water_0.png"))
 			m.grid[x][y].SetTileSize(pixel.V(32, 32))
 			m.grid[x][y].SetTileMapPosition(pixel.V(float64(x), float64(y)))
-			m.grid[x][y].tileType = conwayManager.TileDetails[0]
+			//m.grid[x][y].tileType = conwayManager.TileDetails[0]
 		}
 	}
 }

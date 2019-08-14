@@ -44,8 +44,8 @@ func run() {
 	//conwayManager.Init()
 
 	currentMap = new(Map)
-	currentMap.CreateGrid(pixel.V(64, 64))
-	generate(currentMap)
+	currentMap.CreateGrid(pixel.V(32, 32))
+	//generate(currentMap)
 
 	for !window.Closed() {
 		// Clear window from the last frame.
@@ -64,7 +64,7 @@ func run() {
 		if window.JustPressed(pixelgl.KeyR) {
 			currentMap = new(Map)
 			currentMap.CreateGrid(pixel.V(32, 32))
-			generate(currentMap)
+			//generate(currentMap)
 
 			currentMap.Draw(window)
 			window.Update()

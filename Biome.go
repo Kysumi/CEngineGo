@@ -7,14 +7,14 @@ type Biome struct {
 
 func (b *Biome) getNewConfig(config BiomeTileConfig, isDeath bool) BiomeTileConfig {
 
-	var newTile []string
+	var tilesAvailable []string
 
 	for _, element := range b.AvailableTiles {
 		if element.Type == config.Tile {
 			if isDeath {
-				newTile = element.Reproduce
+				tilesAvailable = element.Reproduce
 			} else {
-				newTile = element.Death
+				tilesAvailable = element.Death
 			}
 			break
 		}
@@ -23,14 +23,14 @@ func (b *Biome) getNewConfig(config BiomeTileConfig, isDeath bool) BiomeTileConf
 	options := make([]BiomeTileConfig, 0)
 
 	for _, element := range b.TileConfig {
-		if element.Tile == config.Tile {
-			options = append(options, element)
+		for _, tileOption := range tilesAvailable {
+			if element.Tile == tileOption {
+				options = append(options, element)
+			}
 		}
 	}
 
-	recordToUse := randomInstance.Intn(len(options));
+	recordToUse := randomInstance.Intn(len(options))
 
-
-
-	config.Tile
+	return options[recordToUse]
 }
