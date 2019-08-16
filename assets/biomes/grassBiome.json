@@ -71,7 +71,7 @@
     },
     {
       "under_pop": 3,
-      "over_pop": false,
+      "over_pop": -1,
       "reproduction": 10,
       "can_die": false,
       "tile": "grass",

@@ -43,6 +43,9 @@ func run() {
 	//conwayManager = new(ConwayManager)
 	//conwayManager.Init()
 
+	loadBiomes([]string{"grassBiome", "waterFrontBiome"})
+
+
 	currentMap = new(Map)
 	currentMap.CreateGrid(pixel.V(32, 32))
 	//generate(currentMap)
