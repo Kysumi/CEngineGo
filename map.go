@@ -71,7 +71,7 @@ func (m *Map) getNeighbourTiles(position pixel.Vec, withParent bool, reach int) 
 	tiles := make([]*Tile, 0)
 
 	for x := -reach; x <= reach; x++ {
-		for y := -1; y <= 1; y++ {
+		for y := -reach; y <= reach; y++ {
 			newPosition := pixel.V(position.X+float64(x), position.Y+float64(y))
 
 			// If it is the current tile ignore

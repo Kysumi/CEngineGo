@@ -19,10 +19,10 @@
         "sand"
       ],
       "death": [
-        ""
+        "water"
       ],
       "reproduce": [
-
+        "sand"
       ]
     },
     {
@@ -31,14 +31,14 @@
         "grass"
       ],
       "death": [
-
+        "sand"
       ],
       "reproduce": [
-
+        "grass"
       ]
     }
   ],
-  "config" : [
+  "tile_config" : [
     {
       "under_pop": 1,
       "can_die": false,

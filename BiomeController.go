@@ -30,7 +30,7 @@ func (bc *BiomeController) generateBiomes() {
 		for _, biomeConfigTile := range biome.TileConfig {
 
 			position := randomPosition(currentMap.size)
-			neighbours := currentMap.getNeighbourTiles(position, true, 1)
+			neighbours := currentMap.getNeighbourTiles(position, true, biomeConfigTile.NeighboursReach)
 
 			// Shuffle the array around so you can't see a pattern as easy
 			randomInstance.Shuffle(
@@ -47,10 +47,7 @@ func (bc *BiomeController) generateBiomes() {
 func (bc *BiomeController) applyBiomeToSet(biomeConfig BiomeTileConfig, tiles []*Tile, biome Biome) {
 	for _, tile := range tiles {
 
-		newController := NewBiomeTileController(biome, biomeConfig)
-		newController.sprite = GetSprite(biome.getRandomSpriteString(biomeConfig.Tile))
-
-		tile.tileController = newController
+		tile.tileController = NewBiomeTileController(biome, biomeConfig)
 	}
 }
 
@@ -67,10 +64,7 @@ func (bc *BiomeController) fullRemaining() {
 				continue
 			}
 
-			newController := NewBiomeTileController(waterBiome, tileConfig)
-			newController.sprite = GetSprite(waterBiome.getRandomSpriteString(tileConfig.Tile))
-
-			tile.tileController = newController
+			tile.tileController = NewBiomeTileController(waterBiome, tileConfig)
 		}
 	}
 }

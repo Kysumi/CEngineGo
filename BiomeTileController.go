@@ -14,7 +14,18 @@ type BiomeTileController struct {
 }
 
 func NewBiomeTileController(biome Biome, config BiomeTileConfig) *BiomeTileController {
-	return &BiomeTileController{controllingType: TcBiome, biome: biome, biomeTileConfig: config}
+	biomeTileController := &BiomeTileController{controllingType: TcBiome, biome: biome, biomeTileConfig: config}
+	biomeTileController.setNewSprite()
+
+	return biomeTileController
+}
+
+func (bt *BiomeTileController) setNewSprite() {
+	bt.sprite =  GetSprite(bt.biome.getRandomSpriteString(bt.biomeTileConfig.Tile))
+}
+
+func (bt *BiomeTileController) getControllingType() int {
+	return bt.controllingType
 }
 
 func (bt *BiomeTileController) getSprite() *pixel.Sprite {
@@ -45,8 +56,8 @@ func (bt *BiomeTileController) checkUnderPopulation(neighbours []*Tile) {
 	}
 
 	if bt.biomeTileConfig.UnderPop <= len(neighbours) && bt.biomeTileConfig.CanDie {
-		newConfig := bt.biome.getNewConfig(bt.biomeTileConfig, true)
-		bt.biomeTileConfig = newConfig
+		bt.biomeTileConfig = bt.biome.getNewConfig(bt.biomeTileConfig, true)
+		bt.setNewSprite()
 	}
 }
 
@@ -63,7 +74,7 @@ func (bt *BiomeTileController) checkLiveToNextGeneration(neighbours []*Tile) {
 	//if bt.tileType.CanDie == false {
 	//	return
 	//}
-
+	//
 	//if bt.tileType.Death <= count {
 	//
 	//	randomInt := randomInstance.Intn(len(neighbours))

@@ -51,6 +51,17 @@ func run() {
 	biomeController := NewBiomeController(biomes, currentMap)
 	biomeController.generateBiomes()
 
+	for i := 0; i < 5; i++ {
+		window.Clear(colornames.Yellow)
+		for x := 0; x < int(currentMap.size.X); x++ {
+			for y := 0; y < int(currentMap.size.Y); y++ {
+				currentMap.grid[x][y].Tick()
+			}
+			currentMap.Draw(window)
+			window.Update()
+		}
+	}
+
 	for !window.Closed() {
 		// Clear window from the last frame.
 		window.Clear(colornames.Yellow)
@@ -68,7 +79,10 @@ func run() {
 		if window.JustPressed(pixelgl.KeyR) {
 			currentMap = new(Map)
 			currentMap.CreateGrid(pixel.V(32, 32))
-			//generate(currentMap)
+
+			biomes := loadBiomes([]string{"grassBiome", "waterFrontBiome"})
+			biomeController := NewBiomeController(biomes, currentMap)
+			biomeController.generateBiomes()
 
 			currentMap.Draw(window)
 			window.Update()

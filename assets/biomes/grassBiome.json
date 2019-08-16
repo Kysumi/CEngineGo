@@ -51,7 +51,7 @@
       "reproduction": 4,
       "can_die": false,
       "tile": "grass",
-      "neighbours_reach": 10
+      "neighbours_reach": 4
     },
     {
       "under_pop": 3,
@@ -83,7 +83,15 @@
       "reproduction": 4,
       "can_die": true,
       "tile": "grass",
-      "neighbours_reach": 10
+      "neighbours_reach": 3
+    },
+    {
+      "under_pop": 4,
+      "over_pop": -1,
+      "reproduction": 4,
+      "can_die": true,
+      "tile": "stone",
+      "neighbours_reach": 2
     }
   ]
 }
