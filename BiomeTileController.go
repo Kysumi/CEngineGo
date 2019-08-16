@@ -5,7 +5,6 @@ import (
 )
 
 type BiomeTileController struct {
-	TileController
 	biome Biome
 	biomeTileConfig BiomeTileConfig
 	controllingType int
@@ -32,6 +31,10 @@ func (bt *BiomeTileController) getSprite() *pixel.Sprite {
 	return bt.sprite
 }
 
+func (bt *BiomeTileController) checkIfMatching(controller *BiomeTileController) bool {
+	return bt.biomeTileConfig.Tile == controller.biomeTileConfig.Tile
+}
+
 // func to call when want to process game of life
 func (bt *BiomeTileController) Tick(vec pixel.Vec) {
 	neighbours := currentMap.getNeighbourTilesUnderController(
@@ -51,11 +54,19 @@ func (bt *BiomeTileController) Tick(vec pixel.Vec) {
 // Rule 1
 func (bt *BiomeTileController) checkUnderPopulation(neighbours []*Tile) {
 
+	count := 0
+
 	if bt.biomeTileConfig.UnderPop == -1 {
 		return
 	}
 
-	if bt.biomeTileConfig.UnderPop <= len(neighbours) && bt.biomeTileConfig.CanDie {
+	for _, element := range neighbours {
+		if element.tileController.(*BiomeTileController).biomeTileConfig.Tile == bt.biomeTileConfig.Tile {
+			count++
+		}
+	}
+
+	if bt.biomeTileConfig.UnderPop <= count && bt.biomeTileConfig.CanDie {
 		bt.biomeTileConfig = bt.biome.getNewConfig(bt.biomeTileConfig, true)
 		bt.setNewSprite()
 	}
@@ -63,78 +74,78 @@ func (bt *BiomeTileController) checkUnderPopulation(neighbours []*Tile) {
 
 // Rule 2
 func (bt *BiomeTileController) checkLiveToNextGeneration(neighbours []*Tile) {
-	//count := 0
+	count := 0
 
-	//for _, element := range neighbours {
-	//	if element.tileType == bt.tileType {
-	//		count++
-	//	}
-	//}
-	//
-	//if bt.tileType.CanDie == false {
-	//	return
-	//}
-	//
-	//if bt.tileType.Death <= count {
-	//
-	//	randomInt := randomInstance.Intn(len(neighbours))
-	//	tile := neighbours[randomInt]
-	//
-	//	conwayManager.swapTileTypeUnderPop(bt, tile.tileType)
-	//}
+	for _, element := range neighbours {
+		if bt.checkIfMatching(element.tileController.(*BiomeTileController)) {
+			count++
+		}
+	}
+
+	if bt.biomeTileConfig.CanDie == false {
+		return
+	}
+
+	if bt.biomeTileConfig.Reproduction >= count {
+
+		randomInt := randomInstance.Intn(len(neighbours))
+		tile := neighbours[randomInt]
+
+		tile.tileController.(*BiomeTileController).biomeTileConfig = bt.biome.getNewConfig(bt.biomeTileConfig, false)
+	}
 }
 
 // Rule 3
 func (bt *BiomeTileController) checkOverPopulation(neighbours []*Tile) {
-	//count := 0
+	count := 0
 
-	//for _, element := range neighbours {
-	//	if element.tileType == bt.tileType {
-	//		count++
-	//	}
-	//}
-	//
-	//if bt.tileType.OverPop == -1 {
-	//	return
-	//}
-	//
-	//if bt.tileType.OverPop <= count {
-	//	//conwayManager.swapTileType(bt)
-	//}
+	for _, element := range neighbours {
+		if bt.checkIfMatching(element.tileController.(*BiomeTileController)) {
+			count++
+		}
+	}
+
+	if bt.biomeTileConfig.OverPop == -1 {
+		return
+	}
+
+	if bt.biomeTileConfig.OverPop <= count {
+		bt.biomeTileConfig = bt.biome.getNewConfig(bt.biomeTileConfig, true)
+	}
 }
 
 // Rule 4
 func (bt *BiomeTileController) checkReproduction(neighbours []*Tile) {
-	//count := 0
-	//
-	//for _, element := range neighbours {
-	//	if element.tileType == bt.tileType {
-	//		count++
-	//	}
-	//}
-	//
-	//if bt.tileType.Reproduction == -1 {
-	//	return
-	//}
-	//
-	//if bt.tileType.Reproduction > count {
-	//	targetCount := bt.tileType.Reproduction
-	//	if len(neighbours) < targetCount {
-	//		targetCount = len(neighbours)
-	//	}
-	//
-	//	countChanged := 0
-	//
-	//	for (countChanged + count) < targetCount {
-	//		randomInt := randomInstance.Intn(len(neighbours))
-	//		tile := neighbours[randomInt]
-	//
-	//		if tile.tileType.BiomeType != bt.tileType.BiomeType {
-	//			conwayManager.swapTileTypeUnderPop(&tile.BiomeTileController, bt.tileType)
-	//			countChanged++
-	//		}
-	//	}
-	//}
+	count := 0
+
+	for _, element := range neighbours {
+		if bt.checkIfMatching(element.tileController.(*BiomeTileController)) {
+			count++
+		}
+	}
+
+	if bt.biomeTileConfig.Reproduction == -1 {
+		return
+	}
+
+	if bt.biomeTileConfig.Reproduction > count {
+		targetCount := bt.biomeTileConfig.Reproduction
+		if len(neighbours) < targetCount {
+			targetCount = len(neighbours)
+		}
+
+		countChanged := 0
+
+		for (countChanged + count) < targetCount {
+			randomInt := randomInstance.Intn(len(neighbours))
+			tile := neighbours[randomInt]
+
+			if tile.tileController.(*BiomeTileController).biomeTileConfig.Tile != bt.biomeTileConfig.Tile {
+				bt.biomeTileConfig = bt.biome.getNewConfig(bt.biomeTileConfig, true)
+				countChanged++
+			}
+		}
+	}
 }
 
 // Helping function to make sure we don'bt have random stray nodes.
