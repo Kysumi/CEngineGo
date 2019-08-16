@@ -13,4 +13,5 @@ const (
 type TileController interface {
 	getControllingType() int
 	Tick(vec pixel.Vec)
+	getSprite() *pixel.Sprite
 }

@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Biome struct {
 	AvailableTiles []AvailableTile   `json:"available_tiles"`
 	TileConfig     []BiomeTileConfig `json:"tile_config"`
@@ -33,4 +35,19 @@ func (b *Biome) getNewConfig(config BiomeTileConfig, isDeath bool) BiomeTileConf
 	recordToUse := randomInstance.Intn(len(options))
 
 	return options[recordToUse]
+}
+
+/**
+	Gets you a random string from the biome config
+ */
+func (b *Biome) getRandomSpriteString(tiletype string) string {
+
+	for _, option := range b.AvailableTiles {
+		if option.Type == tiletype {
+			return option.Options[randomInstance.Intn(len(option.Options))]
+		}
+	}
+
+	fmt.Print("No tile config found for : " + tiletype)
+	return ""
 }

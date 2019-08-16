@@ -1,20 +1,28 @@
 package main
 
-import "github.com/faiface/pixel"
+import (
+	"github.com/faiface/pixel"
+)
 
-type BiomeTile struct {
+type BiomeTileController struct {
 	TileController
 	biome Biome
 	biomeTileConfig BiomeTileConfig
 	controllingType int
+
+	sprite *pixel.Sprite
 }
 
-func NewBiomeTile(tileController TileController, biome Biome) *BiomeTile {
-	return &BiomeTile{TileController: tileController, controllingType: TcBiome, biome: biome}
+func NewBiomeTileController(biome Biome, config BiomeTileConfig) *BiomeTileController {
+	return &BiomeTileController{controllingType: TcBiome, biome: biome, biomeTileConfig: config}
+}
+
+func (bt *BiomeTileController) getSprite() *pixel.Sprite {
+	return bt.sprite
 }
 
 // func to call when want to process game of life
-func (bt *BiomeTile) Tick(vec pixel.Vec) {
+func (bt *BiomeTileController) Tick(vec pixel.Vec) {
 	neighbours := currentMap.getNeighbourTilesUnderController(
 		vec,
 		false,
@@ -30,7 +38,7 @@ func (bt *BiomeTile) Tick(vec pixel.Vec) {
 }
 
 // Rule 1
-func (bt *BiomeTile) checkUnderPopulation(neighbours []*Tile) {
+func (bt *BiomeTileController) checkUnderPopulation(neighbours []*Tile) {
 
 	if bt.biomeTileConfig.UnderPop == -1 {
 		return
@@ -43,7 +51,7 @@ func (bt *BiomeTile) checkUnderPopulation(neighbours []*Tile) {
 }
 
 // Rule 2
-func (bt *BiomeTile) checkLiveToNextGeneration(neighbours []*Tile) {
+func (bt *BiomeTileController) checkLiveToNextGeneration(neighbours []*Tile) {
 	//count := 0
 
 	//for _, element := range neighbours {
@@ -66,7 +74,7 @@ func (bt *BiomeTile) checkLiveToNextGeneration(neighbours []*Tile) {
 }
 
 // Rule 3
-func (bt *BiomeTile) checkOverPopulation(neighbours []*Tile) {
+func (bt *BiomeTileController) checkOverPopulation(neighbours []*Tile) {
 	//count := 0
 
 	//for _, element := range neighbours {
@@ -85,7 +93,7 @@ func (bt *BiomeTile) checkOverPopulation(neighbours []*Tile) {
 }
 
 // Rule 4
-func (bt *BiomeTile) checkReproduction(neighbours []*Tile) {
+func (bt *BiomeTileController) checkReproduction(neighbours []*Tile) {
 	//count := 0
 	//
 	//for _, element := range neighbours {
@@ -111,7 +119,7 @@ func (bt *BiomeTile) checkReproduction(neighbours []*Tile) {
 	//		tile := neighbours[randomInt]
 	//
 	//		if tile.tileType.BiomeType != bt.tileType.BiomeType {
-	//			conwayManager.swapTileTypeUnderPop(&tile.BiomeTile, bt.tileType)
+	//			conwayManager.swapTileTypeUnderPop(&tile.BiomeTileController, bt.tileType)
 	//			countChanged++
 	//		}
 	//	}
@@ -119,7 +127,7 @@ func (bt *BiomeTile) checkReproduction(neighbours []*Tile) {
 }
 
 // Helping function to make sure we don'bt have random stray nodes.
-func (bt *BiomeTile) forceGrouping() {
+func (bt *BiomeTileController) forceGrouping() {
 
 	//directNeighbours := currentMap.getStraightNeighbourTiles(bt.mapPosition)
 	//count := 0

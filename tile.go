@@ -9,18 +9,18 @@ type Tile struct {
 	GameObject
 	tileSize pixel.Vec
 
-	sprite   *pixel.Sprite
+	//sprite   *pixel.Sprite
 	walkable bool
 	tileController TileController
 }
-
-func (t *Tile) Sprite() *pixel.Sprite {
-	return t.sprite
-}
-
-func (t *Tile) SetSprite(sprite *pixel.Sprite) {
-	t.sprite = sprite
-}
+//
+//func (t *Tile) Sprite() *pixel.Sprite {
+//	return t.sprite
+//}
+//
+//func (t *Tile) SetSprite(sprite *pixel.Sprite) {
+//	t.sprite = sprite
+//}
 
 func (t *Tile) TileMapPosition() pixel.Vec {
 	return t.mapPosition
@@ -45,11 +45,7 @@ func (t *Tile) TilePixelPosition() pixel.Vec {
 }
 
 func (t *Tile) Draw(window *pixelgl.Window) {
-	t.sprite.Draw(window, pixel.IM.Moved(t.pixelPosition))
-}
-
-func (t *Tile) SetTileController(window *pixelgl.Window) {
-	t.sprite.Draw(window, pixel.IM.Moved(t.pixelPosition))
+	t.tileController.getSprite().Draw(window, pixel.IM.Moved(t.pixelPosition))
 }
 
 func (t *Tile) Tick() {

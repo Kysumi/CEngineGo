@@ -1,10 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/faiface/pixel"
 	"image"
 	_ "image/png"
+	"io/ioutil"
 	"os"
 )
 
@@ -31,7 +33,7 @@ func loadPicture(name string) (pixel.Picture, error) {
 	return pixel.PictureDataFromImage(img), nil
 }
 
-func initMapIfRequired() {
+func initArrayIfRequired() {
 	if loadedAssets == nil {
 		loadedAssets = make(map[string]*pixel.Sprite)
 	}
@@ -66,11 +68,36 @@ func getFromMemory(name string) *pixel.Sprite {
 
 //
 func GetSprite(name string) *pixel.Sprite {
-	initMapIfRequired()
+	initArrayIfRequired()
 
 	if checkIfLoaded(name) {
 		return getFromMemory(name)
 	} else {
 		return loadSprite(name)
+	}
+}
+
+func LoadTilesFromFile(fileName string) {
+
+	data, err := ioutil.ReadFile("./assets/" + fileName + ".json")
+
+	if err != nil {
+		panic(err)
+	}
+
+	var tileConfig = new(TileConfig)
+	err = json.Unmarshal([]byte(data), &tileConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, tileData := range tileConfig.TileConfig {
+		pic, err := loadPicture(tileData.Image)
+		if err != nil {
+			fmt.Println("Could not find the file.....")
+			panic(err)
+		}
+		sprite := pixel.NewSprite(pic, pic.Bounds())
+		loadedAssets[tileData.Name] = sprite
 	}
 }

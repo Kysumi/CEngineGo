@@ -39,16 +39,17 @@ func run() {
 	camera.chaseObject = player
 
 	last := time.Now()
-	//frameTime := time.Now()
-	//conwayManager = new(ConwayManager)
-	//conwayManager.Init()
 
-	loadBiomes([]string{"grassBiome", "waterFrontBiome"})
+
+	LoadTilesFromFile("tiles/tiles")
 
 
 	currentMap = new(Map)
 	currentMap.CreateGrid(pixel.V(32, 32))
-	//generate(currentMap)
+
+	biomes := loadBiomes([]string{"grassBiome", "waterFrontBiome"})
+	biomeController := NewBiomeController(biomes, currentMap)
+	biomeController.generateBiomes()
 
 	for !window.Closed() {
 		// Clear window from the last frame.
@@ -97,5 +98,3 @@ func run() {
 		window.Update()
 	}
 }
-
-//https://github.com/faiface/pixel

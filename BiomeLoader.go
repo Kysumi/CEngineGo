@@ -5,11 +5,10 @@ import (
 	"io/ioutil"
 )
 
-var (
-	loadedBiomes []Biome
-)
+func loadBiomes(biomesNames []string) []Biome {
 
-func loadBiomes(biomesNames []string) {
+	var loadedBiomes []Biome
+
 	for _, biomeName := range biomesNames {
 		data, err := ioutil.ReadFile("./assets/biomes/" + biomeName + ".json")
 
@@ -24,6 +23,8 @@ func loadBiomes(biomesNames []string) {
 
 		loadedBiomes = append(loadedBiomes, *newBiome)
 	}
+
+	return loadedBiomes
 }
 
 //func (c *ConwayManager) Init() {
