@@ -35,6 +35,12 @@ func (bt *BiomeTileController) checkIfMatching(controller *BiomeTileController) 
 	return bt.biomeTileConfig.Tile == controller.biomeTileConfig.Tile
 }
 
+func (bt *BiomeTileController) setNewBiome(biome Biome, config BiomeTileConfig) {
+
+
+	bt.setNewSprite()
+}
+
 // func to call when want to process game of life
 func (bt *BiomeTileController) Tick(vec pixel.Vec) {
 	neighbours := currentMap.getNeighbourTilesUnderController(
@@ -67,8 +73,7 @@ func (bt *BiomeTileController) checkUnderPopulation(neighbours []*Tile) {
 	}
 
 	if bt.biomeTileConfig.UnderPop <= count && bt.biomeTileConfig.CanDie {
-		bt.biomeTileConfig = bt.biome.getNewConfig(bt.biomeTileConfig, true)
-		bt.setNewSprite()
+		bt.setNewBiome(bt.biome, bt.biome.getNewConfig(bt.biomeTileConfig, true))
 	}
 }
 
@@ -91,7 +96,8 @@ func (bt *BiomeTileController) checkLiveToNextGeneration(neighbours []*Tile) {
 		randomInt := randomInstance.Intn(len(neighbours))
 		tile := neighbours[randomInt]
 
-		tile.tileController.(*BiomeTileController).biomeTileConfig = bt.biome.getNewConfig(bt.biomeTileConfig, false)
+		tileController := tile.tileController.(*BiomeTileController)
+		tileController.setNewBiome(bt.biome, bt.biome.getNewConfig(bt.biomeTileConfig, false))
 	}
 }
 
@@ -110,7 +116,7 @@ func (bt *BiomeTileController) checkOverPopulation(neighbours []*Tile) {
 	}
 
 	if bt.biomeTileConfig.OverPop <= count {
-		bt.biomeTileConfig = bt.biome.getNewConfig(bt.biomeTileConfig, true)
+		bt.setNewBiome(bt.biome, bt.biome.getNewConfig(bt.biomeTileConfig, true))
 	}
 }
 
@@ -139,9 +145,11 @@ func (bt *BiomeTileController) checkReproduction(neighbours []*Tile) {
 		for (countChanged + count) < targetCount {
 			randomInt := randomInstance.Intn(len(neighbours))
 			tile := neighbours[randomInt]
+			tileController := tile.tileController.(*BiomeTileController)
 
-			if tile.tileController.(*BiomeTileController).biomeTileConfig.Tile != bt.biomeTileConfig.Tile {
-				bt.biomeTileConfig = bt.biome.getNewConfig(bt.biomeTileConfig, true)
+
+			if tileController.biomeTileConfig.Tile != bt.biomeTileConfig.Tile {
+				tileController.setNewBiome(bt.biome, bt.biome.getNewConfig(bt.biomeTileConfig, false))
 				countChanged++
 			}
 		}

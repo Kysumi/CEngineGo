@@ -6,11 +6,22 @@
         "water"
       ],
       "death": [
-        "stone",
-        "dirt"
+        "sand"
       ],
       "reproduce": [
         "water"
+      ]
+    },
+    {
+      "type": "sand",
+      "options": [
+        "water"
+      ],
+      "death": [
+        "water"
+      ],
+      "reproduce": [
+        "sand"
       ]
     }
   ],
@@ -21,6 +32,14 @@
       "reproduction": 4,
       "can_die": false,
       "tile": "water",
+      "neighbours_reach": 1
+    },
+    {
+      "under_pop": 2,
+      "over_pop": 4,
+      "reproduction": 2,
+      "can_die": true,
+      "tile": "sand",
       "neighbours_reach": 1
     }
   ]
